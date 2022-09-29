@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;GameShop/Document/GameShop.exerd&apos;" deleteContents="false" description="Delete resource &apos;GameShop/Document/GameShop.exerd&apos;" element1="/GameShop/Document/GameShop.exerd" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1662426469644"/>
+</session>
