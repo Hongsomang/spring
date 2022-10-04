@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import kr.ac.kopo.gameshop.dao.AttachDao;
 import kr.ac.kopo.gameshop.dao.GameDao;
+import kr.ac.kopo.gameshop.model.Attach;
 import kr.ac.kopo.gameshop.model.Game;
 import kr.ac.kopo.gameshop.pager.Pager;
 
@@ -15,6 +18,10 @@ public class GameServiceImpl implements GameService {
 
 	@Autowired
 	GameDao dao;
+	
+	@Autowired
+	AttachDao attachDao;
+
 	
 	@Override
 	public List<Game> list(Pager pager) {
@@ -26,9 +33,18 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
+	@Transactional
 	public void add(Game item) {
 		// TODO Auto-generated method stub
 		dao.add(item);
+		
+		for(Attach  attach : item.getAttachs()) {
+			attach.setGameId(item.getId());
+			
+			attachDao.add(attach);
+		}
+		
+		
 	}
 
 	@Override

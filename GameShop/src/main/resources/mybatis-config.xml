@@ -9,10 +9,12 @@
 		<typeAlias type="kr.ac.kopo.gameshop.model.Game" alias="Game"/>
 		<typeAlias type="kr.ac.kopo.gameshop.model.Member" alias="Member"/>
 		<typeAlias type="kr.ac.kopo.gameshop.model.Publisher" alias="Publisher"/>
+		<typeAlias type="kr.ac.kopo.gameshop.model.Attach" alias="Attach"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/game.xml" /><!-- 게임에 사용하는 sql문을 여기다 담아두겠다. -->
 		<mapper resource="mybatis/member.xml" />
 		<mapper resource="mybatis/publisher.xml" />
+		<mapper resource="mybatis/attach.xml" />
 	</mappers>
 </configuration>

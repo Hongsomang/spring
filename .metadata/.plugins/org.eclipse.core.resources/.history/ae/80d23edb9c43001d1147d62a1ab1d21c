@@ -1,0 +1,13 @@
+package kr.ac.kopo.gameshop.dao;
+
+import kr.ac.kopo.gameshop.model.Attach;
+
+public class AttachDaoImpl implements AttachDao {
+
+	@Override
+	public void add(Attach attach) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

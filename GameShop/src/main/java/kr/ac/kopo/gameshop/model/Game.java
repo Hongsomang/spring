@@ -5,8 +5,10 @@ package kr.ac.kopo.gameshop.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Student
@@ -28,6 +30,8 @@ public class Game {
 	private String publisher;
 	private String contents;
 	
+	private List<MultipartFile> attach;
+	private List<Attach> attachs;
 	
 	public String getContents() {
 		return contents;
@@ -110,4 +114,25 @@ public class Game {
 	public void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
 	}
+
+	
+
+	public List<MultipartFile> getAttach() {
+		return attach;
+	}
+
+	public void setAttach(List<MultipartFile> attach) {
+		this.attach = attach;
+	}
+
+	public List<Attach> getAttachs() {
+		return attachs;
+	}
+
+	public void setAttachs(List<Attach> attachs) {
+		this.attachs = attachs;
+	}
+
+
+	
 }
