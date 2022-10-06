@@ -6,4 +6,8 @@
 		(filename,game_id)
 		VALUES (#{filename},#{gameId})
 	</insert>
+	<delete id="delete_gameid">
+		DELETE FROM attach
+		WHERE game_id=#{gameId}
+	</delete>
 </mapper>

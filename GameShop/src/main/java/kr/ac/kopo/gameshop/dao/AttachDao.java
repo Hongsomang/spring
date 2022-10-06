@@ -6,4 +6,6 @@ public interface AttachDao {
 
 	void add(Attach attach);
 
+	void deleteByGameId(int gameId);
+
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,9 +56,20 @@
 					<input type="date" name="pubDate" value="${item.pubDateFormat}" class="form-control" >
 				</div>
 				<div>
-					<label class="form-label">등록일:${item.regDate}</label>
+					<label class="form-label">등록일: <fmt:formatDate value="${item.regDate}" pattern="yyyy년 MM월 dd일"/> </label>
 				</div>
 				<textarea id="summernote" name="contents" class="form-control" >${item.contents} </textarea>
+				<div>
+					<ul>
+						<c:if test="${ item.attachs.size()<1}">
+							<li>첨부파일이 없습니다.</li>
+						</c:if>
+
+						<c:forEach var="attach" items="${item.attachs }">
+							<li><a href="/upload/${attach.filename }">${attach.filename }</a></li>
+						</c:forEach>
+					</ul>
+				</div>
 				<div class="form-group mt-3">
 					<button class="btn btn-sm btn-primary">변경</button>
 					<a href="../list" ><button type="button" class="btn btn-sm btn-secondary">취소</button> </a>

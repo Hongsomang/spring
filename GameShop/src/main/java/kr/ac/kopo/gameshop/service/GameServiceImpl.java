@@ -47,9 +47,13 @@ public class GameServiceImpl implements GameService {
 		
 	}
 
+	
 	@Override
+	@Transactional
 	public void delete(int id, String memberId) {
 		// TODO Auto-generated method stub
+		attachDao.deleteByGameId(id);
+		
 		dao.delete(id,memberId);
 	}
 
