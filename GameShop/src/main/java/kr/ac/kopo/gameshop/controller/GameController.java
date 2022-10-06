@@ -63,7 +63,7 @@ public class GameController {
 
 		try {
 			List<Attach> list = new ArrayList<Attach>(); // 목록
-			for (MultipartFile attach : item.getAttach()) {
+			for (MultipartFile attach : item.getAttach()) {//몇개있는지 신경 쓸필요가 없음
 
 				if (attach != null && !attach.isEmpty()) {
 					String filename = attach.getOriginalFilename();

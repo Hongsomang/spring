@@ -36,8 +36,17 @@
 		DELETE FROM game WHERE id=#{id}  AND member_id=#{memberId}
 	</delete>
 	
-	<select id="item" resultType="Game">
-		SELECT * FROM game WHERE id=#{id}
+	<resultMap type="Game" id="GameMap" autoMapping="true">
+		<id column="id" property="id"/>
+		<collection property="attachs" column="game_id" ofType="Attach" javaType="ArrayList" autoMapping="true">
+			<id column="attach_id" property="id"/>
+		</collection>
+	</resultMap>
+	
+	<select id="item" resultMap="GameMap">
+		SELECT game.*, attach.id attach_id, game_id, filename 
+		FROM game left join attach ON(game.id=attach.game_id)  
+		WHERE game.id=#{id}
 	</select>
 	<update id="update">
 		UPDATE game SET title=#{title},price=#{price},pub_date=#{pubDate},contents=#{contents}

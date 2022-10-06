@@ -8,4 +8,5 @@
     <typeInfo handle="=GameShop/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.gameshop.service{PublisherService.java[PublisherService" modifiers="513" timestamp="1663652493028"/>
     <typeInfo handle="=GameShop/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.gameshop.dao{PublisherDao.java[PublisherDao" modifiers="513" timestamp="1663652757661"/>
     <typeInfo handle="=GameShop/C:\/eclipse\/jee-2022-03\/eclipse\/plugins\/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.2.v20220201-1208\/jre\/lib\/jrt-fs.jar`java.base=/maven.pomderived=/true=/=/javadoc_location=/https:\/\/docs.oracle.com\/en\/java\/javase\/17\/docs\/api\/=/&lt;java.util.concurrent(Flow$Publisher.class[Publisher" modifiers="1545" timestamp="1661217964884"/>
+    <typeInfo handle="=GameShop/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;kr.ac.kopo.gameshop.dao{AttachDao.java[AttachDao" modifiers="513" timestamp="1664857524289"/>
 </typeInfoHistroy>

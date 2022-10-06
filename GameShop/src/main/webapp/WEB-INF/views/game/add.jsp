@@ -39,8 +39,6 @@
 			div.addClass("input-group")
 			div.addClass("mb-3");
 			
-			
-			
 			const input = $("<input>");
 			input.attr("type", "file");
 			input.attr("name", "attach");
