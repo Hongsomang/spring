@@ -22,5 +22,5 @@ public interface GameService {
 	void init();
 
 	boolean deleteAttach(int id);
-	
+
 }

@@ -14,55 +14,46 @@ import kr.ac.kopo.gameshop.pager.Pager;
 public class GameDaoImpl implements GameDao {
 	
 	@Autowired
-	SqlSession sql;//mybatis
-	
+	SqlSession sql;
+
 	@Override
-	public List<Game> list(Pager pager) {
-		
-		return sql.selectList("game.list",pager); //game은 namespace 이름 id가 list인 쿼리를찾아라
+	public List<Game> list(Pager pager) {		
+		return sql.selectList("game.list", pager);
 	}
 
 	@Override
 	public void add(Game item) {
-		// TODO Auto-generated method stub
-		sql.insert("game.add",item);// item를 add해주세요
+		sql.insert("game.add", item);
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-		sql.delete("game.delete",id);
+		sql.delete("game.delete", id);		
 	}
 
 	@Override
-	public Game item(int id) {
-		// TODO Auto-generated method stub
+	public Game item(int id) {		
 		return sql.selectOne("game.item", id);
-		
 	}
 
 	@Override
 	public void update(Game item) {
-		// TODO Auto-generated method stub
-		sql.update("game.update",item);
+		sql.update("game.update", item);
 	}
 
 	@Override
-	public int total(Pager pager) {
-		// TODO Auto-generated method stub
-		return sql.selectOne("game.total",pager);
+	public int total(Pager pager) {		
+		return sql.selectOne("game.total", pager);
 	}
 
 	@Override
 	public void delete(int id, String memberId) {
-		// TODO Auto-generated method stub
-		HashMap<String, Object>map=new HashMap<>();
+		HashMap<String, Object> map = new HashMap<>();
+		
 		map.put("id", id);
 		map.put("memberId", memberId);
 		
-		sql.delete("game.delete_member",map);
+		sql.delete("game.delete_member", map);
 	}
-
-	
 
 }

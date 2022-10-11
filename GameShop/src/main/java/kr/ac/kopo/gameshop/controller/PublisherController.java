@@ -2,7 +2,6 @@ package kr.ac.kopo.gameshop.controller;
 
 import java.util.List;
 
-import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,51 +17,54 @@ import kr.ac.kopo.gameshop.service.PublisherService;
 @Controller
 @RequestMapping("/publisher")
 public class PublisherController {
-	final String path="publisher/";
+	final String path = "publisher/";
 	
 	@Autowired
 	PublisherService service;
 	
 	@RequestMapping("/list")
-	public String list(Model model, Pager pager) {
-		List<Publisher> list= service.list(pager);
+	public String list(Pager pager, Model model) {
+		List<Publisher> list = service.list(pager);
 		
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
 		
-		
-		//publisher/list
-		return path+"list";
+		return path + "list";
 	}
 	
 	@GetMapping("/add")
 	public String add() {
-		return path+"add";
+		return path + "add";
 	}
 	
 	@PostMapping("/add")
 	public String add(Publisher item) {
 		service.add(item);
-		return"redirect:list";
+		
+		return "redirect:list";
 	}
 	
 	@GetMapping("/update/{id}")
-	public String update(@PathVariable int id,Model model) {
-		Publisher item=service.item(id);
+	public String update(@PathVariable int id, Model model) {
+		Publisher item = service.item(id);
 		
 		model.addAttribute("item", item);
-		return path+"update";
+		
+		return path + "update";
 	}
+	
 	@PostMapping("/update/{id}")
 	public String update(@PathVariable int id, Publisher item) {
 		item.setId(id);
-		service.update(item);
-		return "redirect:../list";
 		
+		service.update(item);
+		
+		return "redirect:../list";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable int id) {
 		service.delete(id);
+		
 		return "redirect:../list";
 	}
 }

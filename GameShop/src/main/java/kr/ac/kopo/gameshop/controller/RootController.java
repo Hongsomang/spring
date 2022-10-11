@@ -4,15 +4,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.ac.kopo.gameshop.model.Game;
 import kr.ac.kopo.gameshop.model.Member;
+import kr.ac.kopo.gameshop.service.GameService;
 import kr.ac.kopo.gameshop.service.MemberService;
-
 
 @Controller
 public class RootController {
@@ -20,65 +22,66 @@ public class RootController {
 	@Autowired
 	MemberService service;
 	
-	@RequestMapping("/") //처리할 주소
-	public String index() {
-		return"index";//index.jsp파일을 사용자에게 보여주겠다.
+	@Autowired
+	GameService gameService;
+	
+	@RequestMapping("/")
+	public String index(Model model) {
+		Game item = gameService.item(206);
+		
+		model.addAttribute("item", item);
+		
+		return "index";
 	}
-	@RequestMapping("/login")
+	
+	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-	@PostMapping("/login")
+	
+	@PostMapping("/login") 
 	public String login(Member member, HttpSession session) {
-		if (service.login(member)) {
-			session.setAttribute("member", member);//멤버의 정보를 세션에 넣음
+		if(service.login(member)) {
+			session.setAttribute("member", member);
 			
-			String targetUrl =(String) session.getAttribute("target_url");
+			String targetUrl = (String) session.getAttribute("target_url");
+			System.out.println("RootController: " + targetUrl);
 			session.removeAttribute("target_url");
 			
-			if(targetUrl == null) {
+			if(targetUrl == null)
 				return "redirect:.";
-			}
-			else {
-				return "redirect:"+targetUrl;
-			}
-			
-			
-		}
-		else {
+			else
+				return "redirect:" + targetUrl;
+		} else
 			return "redirect:login";
-		}
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
 		
+		return "redirect:.";
 	}
 	
 	@GetMapping("/signup")
 	public String signup() {
-		System.out.println("...");
-		return"signup";
+		return "signup";
 	}
+	
 	@PostMapping("/signup")
 	public String signup(Member item) {
-		System.out.println(item.getId());
 		service.signup(item);
+		
 		return "redirect:.";
 	}
 	
 	@ResponseBody
-	@GetMapping("checkId/{id}")
-	public String checkId( @PathVariable String id) {
-		if(service.checkId(id)) {
+	@GetMapping("/checkId/{id}")
+	public String checkId(@PathVariable String id) {	
+		if(service.checkId(id))
 			return "OK";
-		}
-		else {
+		else
 			return "FAIL";
-		}
-		
 	}
-	
-	@RequestMapping
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:.";
-	}
-	
+
 }

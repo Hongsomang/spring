@@ -19,26 +19,25 @@
 	
 	<resources location="file:///d:/upload/" mapping="/upload/**"></resources>
 
-
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<!-- 트랜잭션 어노테이션 달려있으면  -->
-	<tx:annotation-driven/>
-	
 	<context:component-scan base-package="kr.ac.kopo" />
+	
+	<tx:annotation-driven/>
 	
 	<interceptors>
 		<interceptor>
 			<mapping path="/game/**"/>
+			
 			<exclude-mapping path="/game/list"/>
 			<exclude-mapping path="/game/detail/**"/>
+			
 			<beans:bean class="kr.ac.kopo.gameshop.interceptor.UserInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
-	
-	
+
 </beans:beans>

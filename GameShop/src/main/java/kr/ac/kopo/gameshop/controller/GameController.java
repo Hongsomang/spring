@@ -1,11 +1,8 @@
 package kr.ac.kopo.gameshop.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,158 +26,150 @@ import kr.ac.kopo.gameshop.service.PublisherService;
 @Controller
 @RequestMapping("/game")
 public class GameController {
-
 	final String path = "game/";
 	final String uploadPath = "d://upload/";
-
+	
 	@Autowired
-	GameService service; // 실질적인 비지니스로직 실행하는 인터페이스
-
+	GameService service;
+	
 	@Autowired
-	PublisherService publisherService;
-
+	PublisherService publisherService;	
+	
 	@ResponseBody
 	@RequestMapping("/delete_attach/{id}")
 	public String deleteAttach(@PathVariable int id) {
-		if(service.deleteAttach(id)) {
+		if(service.deleteAttach(id))
 			return "OK";
-		}else {
-			return "FAIL";
-		}
+		
+		return "FAIL";
 	}
 	
-	// game/list로 uri 처리
-	@RequestMapping("/list")
-	public String list(Model model, Pager pager) {
-		List<Game> list = service.list(pager);// 여기에 게임 목록담김
-
-		model.addAttribute("list", list); // jsp에 넘겨줌
-
-		return path + "list";// viewResolver에게 넘겨줌
+	@RequestMapping("/detail/{id}")
+	public String detail(@PathVariable int id, Model model) {
+		Game item = service.item(id);
+		
+		model.addAttribute("item", item);
+		
+		return path + "detail";
 	}
 
+	@RequestMapping("/list")
+	public String list(Model model, Pager pager) {
+		List<Game> list = service.list(pager);
+		
+		model.addAttribute("list", list);
+		
+		return path + "list";
+	}
+	
 	@GetMapping("/add")
 	public String add(Model model) {
 		Pager pager = new Pager();
+		
 		List<Publisher> list = publisherService.list(pager);
+		
 		model.addAttribute("list", list);
+		
 		return path + "add";
 	}
-
-	@PostMapping("/add") // 주소가 add인경우에 post로 오면 내가 처리하겠다.
-	public String add(Game item, @SessionAttribute Member member) {// 데이터를 게임객체로 받는다 // 로그인했는지 안했는지 정보는 session에있음
-
-		item.setMemberId(member.getId()); // item에 memberid 넣어주기
-
+	
+	@PostMapping("/add")
+	public String add(Game item, @SessionAttribute Member member) {
+		item.setMemberId( member.getId() );
+		
 		try {
-			List<Attach> list = new ArrayList<Attach>(); // 목록
-			for (MultipartFile attach : item.getAttach()) {//몇개있는지 신경 쓸필요가 없음
-
-				if (attach != null && !attach.isEmpty()) {
+			List<Attach> list = new ArrayList<Attach>();
+			
+			for(MultipartFile attach : item.getAttach()) {
+				if(attach != null && !attach.isEmpty()) {
 					String filename = attach.getOriginalFilename();
-
-					attach.transferTo(new File(uploadPath + filename));
-
-					Attach attachItem = new Attach(); // 이미지 객체
-					attachItem.setFilename(filename);// 이미지 넣기
-
-					list.add(attachItem); // 리스트에다가 이미지 객체 넣기
-
-				}
-
+					
+					attach.transferTo(new File(uploadPath + filename));					
+						
+					Attach attachItem = new Attach();
+					attachItem.setFilename(filename);
+	
+					list.add(attachItem);
+				}					
 			}
-
-			item.setAttachs(list); // 게임 객체에 이미지 리스트 넣기
-
+				
+			item.setAttachs(list);
+			
 			service.add(item);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
-
+		
 		return "redirect:list";
 	}
 
 	@RequestMapping("/delete/{id}")
-	public String delete(@PathVariable int id, @SessionAttribute Member member) {// 주소 줄에 있는 id 값를 가져와서 넣어줘라
-
+	public String delete(@PathVariable int id, @SessionAttribute Member member) {		
 		service.delete(id, member.getId());
-
+		
 		return "redirect:../list";
 	}
-
+	
 	@GetMapping("/update/{id}")
-	public String update(@PathVariable int id, Model model, @SessionAttribute Member member) {// session이 없으면 접근 불가하게 만듬
-		Game item = service.item(id);// db에서 가져온 값을 game 객체에 넣어준다
-
-		if (member.getId().equals(item.getMemberId())) {
+	public String update(@PathVariable int id, Model model, @SessionAttribute Member member) {
+		Game item = service.item(id);
+		
+		if(member.getId().equals(item.getMemberId())) {
 			model.addAttribute("item", item);
-
+			
 			Pager pager = new Pager();
-
+			
 			List<Publisher> list = publisherService.list(pager);
-
+			
 			model.addAttribute("list", list);
-
+			
 			return path + "update";
-		} else {
+		} else		
 			return "redirect:../list";
-		}
-
 	}
-
+	
 	@PostMapping("/update/{id}")
 	public String update(@PathVariable int id, Game item, @SessionAttribute Member member) {
 		item.setMemberId(member.getId());
-		item.setId(id);// 클릭할 떄 받은 id를 item에 넣어준다.
+		item.setId(id);
 		
 		try {
-			List<Attach> list = new ArrayList<Attach>(); // 목록
-			for (MultipartFile attach : item.getAttach()) {//몇개있는지 신경 쓸필요가 없음
-
-				if (attach != null && !attach.isEmpty()) {
+			List<Attach> list = new ArrayList<Attach>();
+			
+			for(MultipartFile attach : item.getAttach()) {
+				if(attach != null && !attach.isEmpty()) {
 					String filename = attach.getOriginalFilename();
-
-					attach.transferTo(new File(uploadPath + filename));
-
-					Attach attachItem = new Attach(); // 이미지 객체
-					attachItem.setFilename(filename);// 이미지 넣기
-
-					list.add(attachItem); // 리스트에다가 이미지 객체 넣기
-
-				}
-
+					
+					attach.transferTo(new File(uploadPath + filename));					
+						
+					Attach attachItem = new Attach();
+					attachItem.setFilename(filename);
+	
+					list.add(attachItem);
+				}					
 			}
-
-			item.setAttachs(list); // 게임 객체에 이미지 리스트 넣기
-
+				
+			item.setAttachs(list);
+			
 			service.update(item);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
 		return "redirect:../list";
 	}
-
+	
 	@RequestMapping("/dummy")
 	public String dummy(@SessionAttribute Member member) {
-
 		service.dummy(member.getId());
+		
 		return "redirect:list";
 	}
-
+	
 	@RequestMapping("/init")
 	public String init() {
 		service.init();
+		
 		return "redirect:list";
 	}
-
-	@RequestMapping("/detail/{id}")
-	public String detail(@PathVariable int id, Model model) {
-		Game item = service.item(id);
-		model.addAttribute("item", item);
-
-		return path + "detail";
-	}
-
 }

@@ -11,37 +11,33 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	MemberDao dao;
-	
+
 	@Override
 	public boolean login(Member member) {
-		// TODO Auto-generated method stub
-		Member item=dao.login(member);
-		if(item != null) { 
-			
-			member.setName(item.getName());
-			member.setPasswd(null);
-			member.setRegDate(item.getRegDate());
-			return true;
-		}
-		else {
-			return false;
-		}
+		Member item = dao.login(member);
 		
+		if(item != null) {
+			
+			member.setPasswd(null);			
+			member.setName(item.getName());			
+			member.setRegDate(item.getRegDate());
+			
+			return true;
+		} else		
+			return false;
 	}
 
 	@Override
 	public void signup(Member item) {
-		System.out.println(item.getId());
-		dao.signup(item);
+		dao.signup(item);		
 	}
 
 	@Override
 	public boolean checkId(String id) {
-		// TODO Auto-generated method stub
-		if(dao.checkId(id)==0)
+		if(dao.checkId(id) == 0)
 			return true;
-		else
-			return false;
+		
+		return false;
 	}
 
 }

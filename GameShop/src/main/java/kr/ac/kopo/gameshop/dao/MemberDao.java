@@ -9,5 +9,5 @@ public interface MemberDao {
 	void signup(Member item);
 
 	int checkId(String id);
-	
+
 }

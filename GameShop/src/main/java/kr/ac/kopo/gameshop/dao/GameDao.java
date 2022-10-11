@@ -10,18 +10,15 @@ public interface GameDao {
 	List<Game> list(Pager pager);
 
 	void add(Game item);
+	
+	void delete(int id);
 
 	void delete(int id, String memberId);
 
-	void delete(int id); //초기화 할 때 사용
-	
 	Game item(int id);
 
 	void update(Game item);
 
-	int total(Pager pager);
-
-	
-
+	int total(Pager pager);	
 
 }
