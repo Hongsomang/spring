@@ -63,10 +63,16 @@ public class GameServiceImpl implements GameService {
 		return dao.item(id);
 	}
 
+	@Transactional
 	@Override
 	public void update(Game item) {
 		// TODO Auto-generated method stub
 		dao.update(item);
+		for(Attach  attach : item.getAttachs()) {
+			attach.setGameId(item.getId());
+			
+			attachDao.add(attach);
+		}
 	}
 
 	@Override
@@ -99,6 +105,17 @@ public class GameServiceImpl implements GameService {
 			}
 		}
 		while(list.size()>0); ///list가 0일때 까지 반복
+	}
+
+	@Override
+	public boolean deleteAttach(int id) {
+		if(attachDao.delete(id)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
 	}
 
 }

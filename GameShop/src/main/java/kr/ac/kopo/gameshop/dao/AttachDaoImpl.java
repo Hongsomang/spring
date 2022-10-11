@@ -27,4 +27,15 @@ public class AttachDaoImpl implements AttachDao {
 		sql.delete("attach.delete_gameid", gameId);
 	}
 
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		if(sql.delete("attach.delete",id)==1) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
 }

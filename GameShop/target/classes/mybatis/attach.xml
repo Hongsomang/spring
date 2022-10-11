@@ -10,4 +10,7 @@
 		DELETE FROM attach
 		WHERE game_id=#{gameId}
 	</delete>
+	<delete id="delete">
+		DELETE FROM attach WHERE id=#{id}
+	</delete>
 </mapper>

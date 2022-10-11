@@ -8,4 +8,6 @@ public interface AttachDao {
 
 	void deleteByGameId(int gameId);
 
+	boolean delete(int id);
+
 }

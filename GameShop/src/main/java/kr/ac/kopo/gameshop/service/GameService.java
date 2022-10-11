@@ -20,5 +20,7 @@ public interface GameService {
 	void dummy(String memberId);
 
 	void init();
+
+	boolean deleteAttach(int id);
 	
 }

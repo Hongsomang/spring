@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,6 +39,16 @@ public class GameController {
 	@Autowired
 	PublisherService publisherService;
 
+	@ResponseBody
+	@RequestMapping("/delete_attach/{id}")
+	public String deleteAttach(@PathVariable int id) {
+		if(service.deleteAttach(id)) {
+			return "OK";
+		}else {
+			return "FAIL";
+		}
+	}
+	
 	// game/list로 uri 처리
 	@RequestMapping("/list")
 	public String list(Model model, Pager pager) {
@@ -122,7 +133,32 @@ public class GameController {
 	public String update(@PathVariable int id, Game item, @SessionAttribute Member member) {
 		item.setMemberId(member.getId());
 		item.setId(id);// 클릭할 떄 받은 id를 item에 넣어준다.
-		service.update(item);
+		
+		try {
+			List<Attach> list = new ArrayList<Attach>(); // 목록
+			for (MultipartFile attach : item.getAttach()) {//몇개있는지 신경 쓸필요가 없음
+
+				if (attach != null && !attach.isEmpty()) {
+					String filename = attach.getOriginalFilename();
+
+					attach.transferTo(new File(uploadPath + filename));
+
+					Attach attachItem = new Attach(); // 이미지 객체
+					attachItem.setFilename(filename);// 이미지 넣기
+
+					list.add(attachItem); // 리스트에다가 이미지 객체 넣기
+
+				}
+
+			}
+
+			item.setAttachs(list); // 게임 객체에 이미지 리스트 넣기
+
+			service.update(item);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		return "redirect:../list";
 	}
 
