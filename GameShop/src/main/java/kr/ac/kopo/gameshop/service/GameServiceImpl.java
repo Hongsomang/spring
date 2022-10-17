@@ -35,12 +35,14 @@ public class GameServiceImpl implements GameService {
 	@Transactional
 	public void add(Game item) {
 		dao.add(item);
-		
-		for(Attach attach : item.getAttachs()) {
-			attach.setGameId(item.getId());
-			
-			attachDao.add(attach);
-		}		
+		if(item.getAttachs() !=null) {
+			for(Attach attach : item.getAttachs()) {
+				attach.setGameId(item.getId());
+				
+				attachDao.add(attach);
+			}
+		}
+				
 	}
 
 	@Override
@@ -60,12 +62,14 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public void update(Game item) {
 		dao.update(item);	
-		
-		for(Attach attach : item.getAttachs()) {
-			attach.setGameId(item.getId());
-			
-			attachDao.add(attach);
+		if(item.getAttachs() !=null) {
+			for(Attach attach : item.getAttachs()) {
+				attach.setGameId(item.getId());
+				
+				attachDao.add(attach);
+			}
 		}
+		
 	}
 
 	@Override
