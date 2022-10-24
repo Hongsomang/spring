@@ -71,6 +71,7 @@ img {
 		<ul>
 			<li><a href="game/list">게임 관리</a></li>
 			<li><a href="publisher/list">게임회사 관리</a></li>
+			<li><a href="/html/publisher.html">게임 관리(rest,AJAX)</a></li>
 		</ul>
 	</div>
 	<!-- Modal -->
