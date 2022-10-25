@@ -17,6 +17,9 @@
 		INSERT INTO publisher
 		(name, name_eng, url)
 		VALUES (#{name}, #{nameEng}, #{url})
+		<selectKey keyColumn="id" keyProperty="id" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
 	<select id="item" resultType="Publisher">
