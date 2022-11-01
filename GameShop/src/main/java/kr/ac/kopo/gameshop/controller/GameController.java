@@ -7,9 +7,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -22,6 +24,7 @@ import kr.ac.kopo.gameshop.model.Publisher;
 import kr.ac.kopo.gameshop.pager.Pager;
 import kr.ac.kopo.gameshop.service.GameService;
 import kr.ac.kopo.gameshop.service.PublisherService;
+import kr.ac.kopo.gameshop.service.WishService;
 
 @Controller
 @RequestMapping("/game")
@@ -34,6 +37,9 @@ public class GameController {
 	
 	@Autowired
 	PublisherService publisherService;	
+	
+	@Autowired
+	WishService wishService;
 	
 	@ResponseBody
 	@RequestMapping("/delete_attach/{id}")
@@ -171,5 +177,21 @@ public class GameController {
 		service.init();
 		
 		return "redirect:list";
+	}
+	
+	@ResponseBody
+	@PutMapping("/wish/{id}")
+	public String addWish(@PathVariable int id, @SessionAttribute Member member) {
+		if(wishService.add(id,member.getId()))
+			return "ok";
+		return "fail";
+	}
+	
+	@ResponseBody
+	@DeleteMapping("/wish/{id}")
+	public String deleteWish(@PathVariable int id, @SessionAttribute Member member) {
+		if(wishService.delete(id,member.getId()))
+			return "ok";
+		return "fail";
 	}
 }

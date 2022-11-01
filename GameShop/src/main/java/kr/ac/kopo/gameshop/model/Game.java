@@ -24,6 +24,7 @@ public class Game {
 	
 	private String name;
 	private String publisher;
+	private int wish;
 	
 	public String getPublisher() {
 		return publisher;
@@ -127,4 +128,12 @@ public class Game {
 		this.attach = attach;
 	}
 
+	public int getWish() {
+		return wish;
+	}
+
+	public void setWish(int wish) {
+		this.wish = wish;
+	}
+	
 }

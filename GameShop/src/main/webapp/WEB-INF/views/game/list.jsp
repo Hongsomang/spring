@@ -7,8 +7,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title></title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".bi-heart").css("color","#adb5bd");
+		$(".bi-heart-fill").css("color","red");
+		
+		$("tbody").on("click",".bi-heart",e=>{
+			const icon=e.target;
+			const game_id=$(icon).data("id");
+			$.ajax("wish/"+game_id,{
+				method: "PUT",
+				success: result =>{
+					if(result =="ok"){
+						$(icon).removeClass("bi-heart");
+						$(icon).addClass("bi-heart-fill");
+						$(icon).css("color","red");	
+					}else{
+						alert("즐겨찾기 등록에 실패하셨습니다.");
+					}
+					
+					
+				},
+				error: result =>{
+					alert("즐겨찾기는 로그인 이후에 가능합니다.");
+				}
+			});
+			
+			
+		});
+		$("tbody").on("click",".bi-heart-fill",e=>{
+			const icon=e.target;
+			$.ajax("wish/"+game_id,{
+				method: "POST",
+				success: result =>{
+					if(result =="ok"){
+						$(icon).removeClass("bi-heart-fill");
+						$(icon).addClass("bi-heart");
+						$(icon).css("color","#adb5bd");
+					}else{
+						alert("즐겨찾기 삭제가 취소되었습니다.");
+					}
+					
+					
+				},
+				error: result =>{
+					alert("즐겨찾기는 로그인 이후에 가능합니다.");
+				}
+			});
+			
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -21,6 +76,7 @@
 				<thead class="table-dark">
 					<tr>
 						<th>게임번호</th>
+						<th>찜하기<th>
 						<th>게임명</th>
 						<th>게임회사</th>
 						<th>가격</th>
@@ -41,6 +97,7 @@
 					<c:forEach var="item" items="${list}">
 						<tr>
 							<td>${item.id}</td>
+							<td> <i data-id="${item.id}" class="bi bi-heart${item.wish>0 ? '-fill' : '' }"></i>${item.wish} <td>
 							<td><a href="detail/${item.id}">${item.title}</a></td>
 							<td>${item.publisher}</td>
 							<td>${item.price}</td>
