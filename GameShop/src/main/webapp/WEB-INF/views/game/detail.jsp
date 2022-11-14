@@ -64,7 +64,7 @@
 				</c:forEach>
 			</ul>
 		</div>
-		
+		 
 		<div>
 			<a href="../list"><button>목록</button></a>
 		</div>		
