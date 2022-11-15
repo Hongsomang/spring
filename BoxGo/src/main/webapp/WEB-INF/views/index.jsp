@@ -11,7 +11,9 @@
 	<h1>BoxGo</h1>
 	<div>
 		<ul>
-			<li><a href="product">제품 관리</a></li>
+			<li><a href="product/list">제품 관리</a></li>
+			<li><a href="domain/list">용어 관리</a></li>
+			
 		</ul>
 	</div>
 </div>

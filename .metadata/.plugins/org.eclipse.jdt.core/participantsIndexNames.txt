@@ -1,4 +1,6 @@
 INDEX VERSION 1.131
+D:\hongsomang\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4262363316.index
+\BoxGo\src\main\java
 D:\hongsomang\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2404428756.index
 \GameShop2\src\main\java
 D:\hongsomang\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3590646807.index
