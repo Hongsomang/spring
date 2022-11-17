@@ -4,65 +4,44 @@
 <mapper namespace="product">
 	<select id="total" resultType="Integer">
 		SELECT COUNT(*) FROM
-		(<include refid="search"></include>)
+		(<include refid="search"></include>)T1
 	</select>
 
 	<sql id="search">
-		SELECT * FROM prodcut 
+		SELECT * FROM product 
 		
 		<where>
 			<if test="search == 1">
-				bookid=#{keyword}
+				
 			</if>
 			
-			<if test="search == 2">
-				bookname LIKE CONCAT(CONCAT('%', #{keyword}), '%')
-			</if>
-			
-			<if test="search == 3">
-				publisher LIKE CONCAT(CONCAT('%', #{keyword}), '%')
-			</if>
-			
-			<if test="search == 4">
-				price BETWEEN #{lowPrice} AND #{highPrice}
-			</if>
 		</where>
-		
-		<if test="search == 4">
-			ORDER BY price
-		</if>
-		
-		<if test="search != 4">
-			ORDER BY bookid
-		</if>
 	</sql>
 
 	<select id="list" resultType="Product">
 		SELECT * FROM
-			(SELECT ROWNUM rnum, T1.* FROM
-				(<include refid="search"></include>) T1)
-		WHERE rnum BETWEEN ((#{page} - 1) * #{perPage} + 1) 
-		AND (#{page} * #{perPage})
+		(<include refid="search"></include>)T1 
+		LIMIT #{offset},#{perPage} 
 	</select>
 	
 	<insert id="add">
-		INSERT INTO book VALUES (#{bookid}, #{bookname}, #{publisher}, #{price})
+		INSERT INTO product (name,barcode) VALUES (#{name},#{barcode})
 	</insert>
 	
 	<update id="update">
-		UPDATE book
-		SET bookname=#{bookname}, publisher=#{publisher}, price=#{price}
-		WHERE bookid=#{bookid}
+		UPDATE product
+		SET name=#{name}, barcode=#{barcode}
+		WHERE id=#{id}
 	</update>
 	
 	<delete id="delete">
-		DELETE FROM book
-		WHERE bookid=#{bookid}	
+		DELETE FROM product
+		WHERE id=#{id}	
 	</delete>
 	
 	<select id="item" resultType="Product">
-		SELECT * FROM book
-		WHERE bookid=#{bookid}
+		SELECT * FROM product
+		WHERE id=#{id}
 	</select>
 	
 </mapper>

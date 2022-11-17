@@ -18,4 +18,6 @@ public interface KeywordsService {
 
 	void update(Keywords item);
 
+	List<Keywords> list(int domainId);
+
 }

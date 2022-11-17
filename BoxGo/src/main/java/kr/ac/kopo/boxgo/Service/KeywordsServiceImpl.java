@@ -48,4 +48,13 @@ public class KeywordsServiceImpl implements KeywordsService {
 		dao.update(item);
 	}
 
+	@Override
+	public List<Keywords> list(int domainId) {
+		// TODO Auto-generated method stub
+		KeywordsPager pager=new KeywordsPager();
+		pager.setDomainId(domainId);
+		pager.setPerPage(0);
+		return dao.list(pager);
+	}
+
 }

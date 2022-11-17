@@ -4,13 +4,16 @@
 
 	<select id="total" resultType="Integer">
 		SELECT COUNT(*) FROM
-		keywords
+		(<include refid="search"></include>) T1
 	</select>
 
 	<sql id="search">
 		SELECT * FROM keywords 
 		
 		<where>
+			<if test="domainId >0">
+				domain_id=#{domainId}
+			</if>
 			<if test="search == 1">
 			</if>
 			
@@ -21,8 +24,11 @@
 
 	<select id="list" resultType="Keywords">
 		SELECT * FROM
-			keywords
-		LIMIT #{offset},#{perPage} 
+			(<include refid="search"></include>) T1
+		<if test="perPage !=0">
+			LIMIT #{offset},#{perPage}
+		</if>
+		 
 	</select>
 	
 	<insert id="add">
@@ -37,12 +43,12 @@
 	
 	<delete id="delete">
 		DELETE FROM keywords
-		WHERE id=#{id} and doamin_id=#{domain_id}
+		WHERE id=#{id} and doamin_id=#{domainId}
 	</delete>
 	
 	<select id="item" resultType="Keywords">
 		SELECT * FROM keywords
-		WHERE id=#{id} and doamin_id=#{domain_id}
+		WHERE id=#{id} and doamin_id=#{domainId}
 	</select>
 	
 </mapper>
