@@ -3,6 +3,8 @@ package kr.ac.kopo.boxgo.Model;
 public class Domain {
 	private int id;
 	private String name;
+	private String caption;
+	
 	
 	public int getId() {
 		return id;
@@ -15,6 +17,12 @@ public class Domain {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getCaption() {
+		return caption;
+	}
+	public void setCaption(String caption) {
+		this.caption = caption;
 	}
 	
 	

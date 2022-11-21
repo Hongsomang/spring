@@ -26,6 +26,7 @@
 					<option value="0">선택</option>
 					<option value="1" ${pager.search == 1 ? 'selected' : ''}>항목번호</option>
 					<option value="2" ${pager.search == 2 ? 'selected' : ''}>항목명</option>
+					<option value="2" ${pager.search == 2 ? 'selected' : ''}>설명</option>
 					
 				</select>
 			</div>
@@ -65,6 +66,7 @@
 					<tr>
 						<th>항목번호</th>
 						<th>항목명</th>
+						<th>설명</th>
 						<th>관리</th>
 					</tr>
 				</thead>
@@ -78,7 +80,7 @@
 						<tr>
 							<td>${item.id}</td>
 							<td>${item.name}</td>
-							
+							<td>${item.caption}</td>
 							<td><a href="/keywords/${item.id }/list">용어관리</a><a href="update/${item.id}" class="btn btn-sm btn-warning">변경</a> <a href="delete/${item.id}" class="btn btn-sm btn-danger">삭제</a></td>
 						</tr>
 					</c:forEach>

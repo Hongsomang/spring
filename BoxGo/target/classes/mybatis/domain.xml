@@ -26,12 +26,12 @@
 	</select>
 	
 	<insert id="add">
-		INSERT INTO domain (name) VALUES (#{name})
+		INSERT INTO domain (name,caption) VALUES (#{name},#{caption})
 	</insert>
 	
 	<update id="update">
 		UPDATE domain
-		SET name=#{name}
+		SET name=#{name}, caption=#{caption}
 		WHERE id=#{id}
 	</update>
 	

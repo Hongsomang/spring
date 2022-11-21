@@ -17,7 +17,10 @@
 					<label>항목명:</label>
 					<input name="name" type="text">
 				</div>
-				
+				<div>
+					<label>설명:</label>
+					<input name="caption" type="text">
+				</div>
 			
 				
 				<div>

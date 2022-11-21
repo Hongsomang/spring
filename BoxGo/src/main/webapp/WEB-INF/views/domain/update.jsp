@@ -13,15 +13,18 @@
 		<div>
 			<form method="post">
 				<div>
-					<label>도서번호:</label>
+					<label>항목번호:</label>
 					<input name="id" type="text" value="${item.id}" readonly>
 				</div>
 				
 				<div>
-					<label>도서명:</label>
+					<label>학목명:</label>
 					<input name="name" type="text" value="${item.name}">
 				</div>
-				
+				<div>
+					<label>설명:</label>
+					<input name="caption" type="text" value="${item.caption}">
+				</div>
 				
 				
 				

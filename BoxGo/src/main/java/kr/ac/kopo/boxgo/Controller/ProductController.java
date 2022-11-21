@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.ac.kopo.boxgo.Model.Keywords;
+import kr.ac.kopo.boxgo.Model.MobileDetail;
 import kr.ac.kopo.boxgo.Model.Product;
 import kr.ac.kopo.boxgo.Service.KeywordsService;
 import kr.ac.kopo.boxgo.Service.ProductService;
+import kr.ac.kopo.boxgo.pager.KeywordsPager;
 import kr.ac.kopo.boxgo.pager.Pager;
 
 @Controller
@@ -36,21 +38,19 @@ public class ProductController {
 	
 	@GetMapping("/add")
 	public String add( Model model) {
-		/*List<Keywords> categoryList=keywordsService.list(2);
-		model.addAttribute("categorys", categoryList);
-		List<Keywords> brandList=keywordsService.list(3);
-		model.addAttribute("brand", brandList);
-		List<Keywords> sizeList=keywordsService.list(4);
-		model.addAttribute("size", sizeList);
-		List<Keywords> colorList=keywordsService.list(5);
-		model.addAttribute("color", colorList);*/
-		List<Keywords> list=keywordsService.list(0);
+		KeywordsPager pager=new KeywordsPager();
+		pager.setPerPage(0);
+		List<Keywords> list=keywordsService.list(pager);
 		model.addAttribute("list", list);
+	
 		return path+"add";
 	}
 	@PostMapping("/add")
-	public String add(Product item) {
+	public String add(Product item, MobileDetail detail) {
+		item.setDetail(detail);
+		
 		service.add(item);
+		
 		return "redirect:list";
 	}
 	@GetMapping("delete/{id}")

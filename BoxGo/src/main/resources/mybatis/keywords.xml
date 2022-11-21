@@ -8,7 +8,8 @@
 	</select>
 
 	<sql id="search">
-		SELECT * FROM keywords 
+		SELECT keywords.*, domain.name domain_name, domain.caption FROM keywords
+		LEFT JOIN domain ON keywords.domain_id =domain.id
 		
 		<where>
 			<if test="domainId >0">
@@ -19,11 +20,11 @@
 			
 	
 		</where>
-	
+		order by domain_id
 	</sql>
 
 	<select id="list" resultType="Keywords">
-		SELECT * FROM
+		SELECT * FROM 
 			(<include refid="search"></include>) T1
 		<if test="perPage !=0">
 			LIMIT #{offset},#{perPage}

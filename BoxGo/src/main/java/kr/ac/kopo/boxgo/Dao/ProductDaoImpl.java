@@ -1,11 +1,13 @@
 package kr.ac.kopo.boxgo.Dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.ac.kopo.boxgo.Model.MobileDetail;
 import kr.ac.kopo.boxgo.Model.Product;
 import kr.ac.kopo.boxgo.pager.Pager;
 
@@ -30,6 +32,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void add(Product item) {
 		// TODO Auto-generated method stub
+
 		sql.insert("product.add", item);
 	}
 

@@ -5,6 +5,9 @@ public class Keywords {
 	private String name;
 	private int domainId;
 	
+	private String domainName;
+	private String caption;
+
 	public Keywords() {
 		
 	}
@@ -32,7 +35,22 @@ public class Keywords {
 	public void setDomainId(int domainId) {
 		this.domainId = domainId;
 	}
+
+	public String getDomainName() {
+		return domainName;
+	}
+
+	public void setDomainName(String domainName) {
+		this.domainName = domainName;
+	}
 	
-	
+	public String getCaption() {
+		return caption;
+	}
+
+	public void setCaption(String caption) {
+		this.caption = caption;
+	}
+
 	
 }

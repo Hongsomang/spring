@@ -5,6 +5,28 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<script type="text/javascript">
+	$(function() {
+		$("select.detail").change(function() {
+			const target=$(this).data("target");
+			const option=$(this).find("option:selected");
+			
+			if(option.index()==0){
+				$("#"+target).val("");
+			}
+			else{
+				$("#"+target).val(option.text());	
+			}
+			
+			
+		});
+	});
+</script>
 </head>
 <body>
 	<div>
@@ -23,55 +45,35 @@
 					<input name="barcode" type="text"><button type="button"> 자동생성</button>
 				</div>
 				<hr>
-				<div>
-					<label>카테고리:</label>
-					<input name="category" type="text">
-					<select id="category">
-						<option >직접입력</option>
-						<c:forEach var="item" items="${list }">
-							<c:if test="${item.domainId ==2}">
-							<option value="${item.id }">${item.name }</option>
-							</c:if>
-						</c:forEach>
+				<c:set var="domainId" value="0"></c:set>
+				<c:forEach var="item" items="${list }">
+					<c:if test="${item.domainId != domainId }">
+						<c:if test="${domainId !=0 }">
+								</select>
+								</div>
 						
+						</c:if>
+						<c:set var="domainId" value="${item.domainId }"></c:set>
+						<div>
+							<label>${item.caption}</label>
+							<input name="${ item.domainName}" type="text" id="${item.domainName}">
+							<select class="detail" data-target="${item.domainName }">
+								<option >직접입력</option>
+					</c:if>
+			
+					
+							
+								<option value="${item.id }">${item.name }</option>
+							
+						
+						
+				
+				</c:forEach>
+				<c:if test="${domainId !=0 }">
 					</select>
-				</div>
-				<div>
-					<label> 브랜드: </label>
-					<input name="brand" type="text">
-					<select id="brand">
-						<option >직접입력</option>
-						<c:forEach var="item" items="${list }">
-							<c:if test="${item.domainId ==3}">
-							<option value="${item.id }">${item.name }</option>
-							</c:if>
-						</c:forEach>
-					</select>
-				</div>
-				<div>
-					<label>사이즈:</label>
-					<input name="size" type="text">
-					<select id="size">
-						<option >직접입력</option>
-						<c:forEach var="item" items="${list }">
-							<c:if test="${item.domainId ==4}">
-							<option value="${item.id }">${item.name }</option>
-							</c:if>
-						</c:forEach>
-					</select>
-				</div>
-				<div>
-					<label>컬러:</label>
-					<input name="color" type="text">
-					<select id="color">
-						<option >직접입력</option>
-						<c:forEach var="item" items="${list }">
-							<c:if test="${item.domainId ==5}">
-							<option value="${item.id }">${item.name }</option>
-							</c:if>
-						</c:forEach>
-					</select>
-				</div>
+					</div>
+						
+				</c:if>
 				<div>
 					<button>등록</button>
 				</div>

@@ -9,10 +9,12 @@
 		<typeAlias type="kr.ac.kopo.boxgo.Model.Product" alias="Product"/>
 		<typeAlias type="kr.ac.kopo.boxgo.Model.Domain" alias="Domain"/>
 		<typeAlias type="kr.ac.kopo.boxgo.Model.Keywords" alias="Keywords"/>
+		<typeAlias type="kr.ac.kopo.boxgo.Model.Detail" alias="Detail"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/product.xml" /><!-- 게임에 사용하는 sql문을 여기다 담아두겠다. -->
 		<mapper resource="mybatis/domain.xml" />
 		<mapper resource="mybatis/keywords.xml" />
+		<mapper resource="mybatis/Detail.xml" />
 	</mappers>
 </configuration>
